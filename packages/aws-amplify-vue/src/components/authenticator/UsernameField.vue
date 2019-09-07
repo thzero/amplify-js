@@ -15,28 +15,28 @@
     <div v-bind:class="amplifyUI.formField">
         <div v-if="shouldRenderUsernameField">
             <div v-bind:class="amplifyUI.inputLabel">{{$Amplify.I18n.get(getUsernameLabel())}} *</div>
-            <input 
-                v-bind:class="amplifyUI.input" 
-                v-model="username" 
-                :placeholder="$Amplify.I18n.get(`Enter your ${getUsernameLabel()}`)" 
-                autofocus 
-                v-on:keyup="usernameChanged" 
+            <input
+                v-bind:class="amplifyUI.input"
+                v-model="username"
+                :placeholder="$Amplify.I18n.get(`Enter your ${getUsernameLabel()}`)"
+                autofocus
+                v-on:keyup="usernameChanged"
                 v-bind:data-test="auth.genericAttrs.usernameInput"
             />
         </div>
         <div v-if="shouldRenderEmailField">
             <div v-bind:class="amplifyUI.inputLabel">{{$Amplify.I18n.get('Email')}} *</div>
-            <input 
-                v-bind:class="amplifyUI.input" 
-                v-model="email" 
-                :placeholder="$Amplify.I18n.get('Enter your email')" 
-                autofocus 
-                v-on:keyup="emailChanged" 
+            <input
+                v-bind:class="amplifyUI.input"
+                v-model="email"
+                :placeholder="$Amplify.I18n.get('Enter your email')"
+                autofocus
+                v-on:keyup="emailChanged"
                 v-bind:data-test="auth.genericAttrs.emailInput"
             />
         </div>
         <div v-if="shouldRenderPhoneNumberField">
-            <amplify-phone-field 
+            <amplify-phone-field
                 v-bind:required="phoneNumberRequired"
                 v-on:phone-number-changed="phoneNumberChanged"
             ></amplify-phone-field>
@@ -74,7 +74,7 @@ export default {
             this.username = usernameParam;
             this.$emit('username-field-changed', {usernameField: 'username', username: usernameParam});
         }
-    },  
+    },
     computed: {
         shouldRenderEmailField() {
             return this.usernameAttributes === 'email';
@@ -100,7 +100,7 @@ export default {
         usernameChanged() {
             this.$emit('username-field-changed', {usernameField: 'username', username: this.username});
         }
-        
+
     }
 }
 </script>

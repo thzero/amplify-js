@@ -3,6 +3,7 @@ module.exports = {
     this.name = name;
     this.info = jest.fn();
     this.error = jest.fn();
+    this.debug = jest.fn();
   },
   Auth: {
     currentAuthenticatedUser: jest.fn(() => Promise.resolve({})),
@@ -16,7 +17,7 @@ module.exports = {
     setPreferredMFA: jest.fn(() => Promise.resolve({})),
     setupTOTP: jest.fn(() => Promise.resolve('gibberish')),
     signIn: jest.fn(() => Promise.resolve({
-      challengeName: 'CUSTOM_CHALLENGE', 
+      challengeName: 'CUSTOM_CHALLENGE',
       challengeParam: { trigger: 'true' },
     })),
     signOut: jest.fn(() => Promise.resolve({})),

@@ -4,7 +4,7 @@ The ```aws-amplify-vue``` package is a set of Vue components which integrates yo
 
 It is intended for use with Vue applications using version 2.5 or above, and was created using the Vue 3.0 CLI.
 
-## Setup 
+## Setup
 
 In your Vue app, install the following:
 
@@ -37,7 +37,7 @@ In App.vue:
 import { components } from 'aws-amplify-vue'
 
 export default {
-  name: 'app', 
+  name: 'app',
   components: {
     ...<yourOtherComponents>,
     ...components
@@ -91,7 +91,7 @@ The Authenticator component provides basic basic login/logout functionality for 
 
 Usage: ```<amplify-authenticator></amplify-authenticator>```
 
-Config: 
+Config:
 
 ```
 <amplify-authenticator v-bind:authConfig="authConfig"></amplify-authenticator>
@@ -104,14 +104,14 @@ Config:
 | [signInConfig](#signinconfig)           | object |
 | [signUpConfig](#signupconfig)           | object |
 
-&ast; The attributes above reference the config objects for the components that are nested inside Authenticator.  See the individual components for details. 
+&ast; The attributes above reference the config objects for the components that are nested inside Authenticator.  See the individual components for details.
 
 
 Events: None
 
 ### SignIn
 
-The SignIn component provides your users with the ability to sign in.  
+The SignIn component provides your users with the ability to sign in.
 
 Usage: ```<amplify-sign-in></amplify-sign-in>```
 
@@ -124,17 +124,40 @@ Config:
 |-----------|--------|-----------------------------------------|-----------|----------|
 | header    | string | the component header                    | 'Sign In' | no       |
 | username  | string | the default value of the username field | ''        | no       |
+| generic   | object | the generic login                       | true      | no       |
+| federated | object | the scocial provider application ID(s)  | N/A       | no       |
 
-Events: 
+https://github.com/aws-amplify/amplify-js/pull/3735/files
+
+Events:
 
 * ```AmplifyEventBus.$emit('authState', 'signedIn')```: Emitted when a user successfully signs in without answering an MFA challenge.
 * ```AmplifyEventBus.$emit('authState', 'confirmSignIn')```: Emitted when a user successfully provides their credentials but is then asked to answer and MFA challenge.
 * ```AmplifyEventBus.$emit('authState', 'forgotPassword')```: Emitted when a user clicks the 'Forgot Password' button.
 * ```AmplifyEventBus.$emit('authState', 'signUp')```: Emitted when a user clicks 'Back to Sign Up'.
 
+### FederatedSignIn
+The FederatedSignIn component provides your users with the ability to sign in using social providers.
+Usage: ```<amplify-federated-sign-in></amplify-federated-sign-in>```
+Config:
+```
+<amplify-federated-sign-in
+  v-bind:google_client_id="google_client_id"
+  v-bind:facebook_app_id="facebook_app_id"
+  v-bind:amazon_client_id="amazon_client_id">
+</amplify-federated-sign-in>
+```
+| Attribute        | Type   | Description                               | Default   | Required |
+|------------------|--------|-------------------------------------------|-----------|----------|
+| google_client_id | string | the application id to the social provider | ''        | no       |
+| facebook_app_id  | string | the application id to the social provider | ''        | no       |
+| amazon_client_id | string | the application id to the social provider | ''        | no       |
+Events:
+* ```AmplifyEventBus.$emit('authState', 'signedIn')```: Emitted when a user successfully signs in without answering an MFA challenge.
+
 ### ConfirmSignIn
 
-The ConfirmSignIn component provides your users with the ability to answer an MFA challenge.  
+The ConfirmSignIn component provides your users with the ability to answer an MFA challenge.
 
 Usage: ```<amplify-confirm-sign-in></amplify-confirm-sign-in>```
 
@@ -149,7 +172,7 @@ Config:
 | user      | object | the user who is stepping through the signin process | N/A       | yes      |
 
 
-Events: 
+Events:
 
 * ```AmplifyEventBus.$emit('authState', 'signedIn')```: Emitted when a user successfully answers their MFA challenge.
 * ```AmplifyEventBus.$emit('authState', 'signIn');```: Emitted when a user clicks 'Back to Sign In'.
@@ -157,7 +180,7 @@ Events:
 
 ### SignUp
 
-The SignUp component provides your users with the ability to sign up.  
+The SignUp component provides your users with the ability to sign up.
 
 Usage: ```<amplify-sign-up></amplify-sign-up>```
 
@@ -172,7 +195,7 @@ Config:
 | signUpFields | array  | [see below](#signup-fields) | [see below](#signup-fields) | no       |
 
 
-Events: 
+Events:
 
 * ```AmplifyEventBus.$emit('authState', 'confirmSignUp')```: Emitted when a user successfully enters their information but has not yet completed a required verification step.
 * ```AmplifyEventBus.$emit('authState', 'signIn')```: Emitted when a user successfully provides their information and does not need to complete a required verfication step, or when they click 'Back to Sign In'.
@@ -180,7 +203,7 @@ Events:
 
 ### ConfirmSignUp
 
-The ConfirmSignUp component provides your users with the ability to verify their identity.  
+The ConfirmSignUp component provides your users with the ability to verify their identity.
 
 Usage: ```<amplify-confirm-sign-up></amplify-confirm-sign-up>```
 
@@ -195,13 +218,13 @@ Config:
 | username  | string | the username of the user who is signingup | ''                | no       |
 
 
-Events: 
+Events:
 
 * ```AmplifyEventBus.$emit('authState', 'signIn')```: Emitted when a user successfully completes their verification step or clicks 'Back to Sign In'.
 
 ### ForgotPassword
 
-The ForgotPassword component provides your users with the ability to reset their password.  
+The ForgotPassword component provides your users with the ability to reset their password.
 
 Usage: ```<amplify-forgot-password></amplify-forgot-password>```
 
@@ -214,13 +237,13 @@ Config:
 |-----------|--------|-------------------------------------------|-------------------|----------|
 | header    | string | the component header                      | 'Forgot Password' | no       |
 
-Events: 
+Events:
 
 * ```AmplifyEventBus.$emit('authState', 'signIn')```: Emitted when a user successfully resets their password or clicks 'Back to Sign In'.
 
 ### SignOut
 
-The SignOut component provides your users with the ability to sign out.  
+The SignOut component provides your users with the ability to sign out.
 
 Usage: ```<amplify-sign-out></amplify-sign-out>```
 
@@ -234,7 +257,7 @@ Config:
 | msg           | string | message displayed above the sign out button | null       | no       |
 | signOutButton | string | text that appears in the sign out button    | 'Sign Out' | no       |
 
-Events: 
+Events:
 
 * ```AmplifyEventBus.$emit('authState', 'signedOut')```: Emitted when a user successfully signs out.
 
@@ -265,11 +288,11 @@ Events: None
 
 The `aws-amplify-vue` SignUp component allows you to programatically define the user input fields that are displayed to the user. Information entered into these fields will populate the user's record in your User Pool.
 
-Usage: 
+Usage:
 
 ```
 <amplify-sign-up v-bind:signUpConfig="signUpConfig"></amplify-sign-up>
-``` 
+```
 
 | Attribute    | Type   | Description                                                   | Possible Values                |
 |--------------|--------|---------------------------------------------------------------|--------------------------------|
@@ -489,7 +512,7 @@ Usage: ```<amplify-s3-album path="uploads"></amplify-s3-album>```
 
 Props:
 
-The S3Album component does not have a config object like most other amplify-vue components. Instead it receives the S3 directory path as a string.  The path is required. 
+The S3Album component does not have a config object like most other amplify-vue components. Instead it receives the S3 directory path as a string.  The path is required.
 
 
 Events: None
@@ -502,7 +525,7 @@ Usage: ```<amplify-s3-image imagePath="path"></amplify-s3-image>```
 
 Props:
 
-The S3Image component does not have a config object like most other amplify-vue components. Instead it receives the S3 image path as a string.  The path is required. 
+The S3Image component does not have a config object like most other amplify-vue components. Instead it receives the S3 image path as a string.  The path is required.
 
 Events: None
 

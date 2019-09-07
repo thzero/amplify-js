@@ -12,7 +12,7 @@
  */
 
 <template>
-  <div>
+  <div id="authenticator">
     <amplify-sign-in v-if="displayMap.showSignIn" v-bind:signInConfig="options.signInConfig" v-bind:usernameAttributes="options.usernameAttributes"></amplify-sign-in>
     <amplify-sign-up v-if="displayMap.showSignUp" v-bind:signUpConfig="options.signUpConfig" v-bind:usernameAttributes="options.usernameAttributes"></amplify-sign-up>
     <amplify-confirm-sign-up v-if="displayMap.showConfirmSignUp" v-bind:confirmSignUpConfig="options.confirmSignUpConfig" v-bind:usernameAttributes="options.usernameAttributes"></amplify-confirm-sign-up>

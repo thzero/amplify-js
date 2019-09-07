@@ -24,7 +24,10 @@ import ForgotPassword from './ForgotPassword.vue';
 import Authenticator from './Authenticator.vue';
 import SetMfa from './SetMFA.vue';
 import RequireNewPassword from './RequireNewPassword.vue';
-
+import FederatedSignIn from './FederatedSignIn.vue';
+import FederatedSignInAmazonButton from './Provider/AmazonButton.vue';
+import FederatedSignInFacebookButton from './Provider/FacebookButton.vue';
+import FederatedSignInGoogleButton from './Provider/GoogleButton.vue';
 
 Vue.component('amplify-authenticator', Authenticator);
 Vue.component('amplify-sign-in', SignIn);
@@ -35,11 +38,15 @@ Vue.component('amplify-confirm-sign-in', ConfirmSignIn);
 Vue.component('amplify-forgot-password', ForgotPassword);
 Vue.component('amplify-set-mfa', SetMfa);
 Vue.component('amplify-require-new-password', RequireNewPassword);
-
+Vue.component('amplify-federated-sign-in', FederatedSignIn);
+Vue.component('amplify-federated-sign-in-amazon', FederatedSignInAmazonButton);
+Vue.component('amplify-federated-sign-in-facebook', FederatedSignInFacebookButton);
+Vue.component('amplify-federated-sign-in-google', FederatedSignInGoogleButton);
 
 export {
   Authenticator,
   SignIn,
+  FederatedSignIn,
   SignUp,
   SignOut,
   ConfirmSignUp,

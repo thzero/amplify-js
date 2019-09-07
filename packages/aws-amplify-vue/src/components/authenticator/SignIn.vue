@@ -15,30 +15,46 @@
   <div v-bind:class="amplifyUI.formSection" v-bind:data-test="auth.signIn.section">
     <div v-bind:class="amplifyUI.sectionHeader" v-bind:data-test="auth.signIn.headerSection">{{options.header}}</div>
     <div v-bind:class="amplifyUI.sectionBody" v-bind:data-test="auth.signIn.bodySection">
-      <amplify-username-field 
-        v-bind:usernameAttributes="usernameAttributes" 
-        v-on:username-field-changed="usernameFieldChanged">
-      </amplify-username-field>
-      <div v-bind:class="amplifyUI.formField">
-        <div v-bind:class="amplifyUI.inputLabel">{{$Amplify.I18n.get('Password')}} *</div>
-        <input  v-bind:class="amplifyUI.input" v-model="password" type="password" :placeholder="$Amplify.I18n.get('Enter your password')" v-on:keyup.enter="signIn" v-bind:data-test="auth.signIn.passwordInput" />
-        <div v-bind:class="amplifyUI.hint">
-          {{$Amplify.I18n.get('Forget your password? ')}}
-          <a v-bind:class="amplifyUI.a" v-on:click="forgot" v-bind:data-test="auth.signIn.forgotPasswordLink">{{$Amplify.I18n.get('Reset password')}}</a>
+      <div v-if="options.federated">
+        <amplify-federated-sign-in
+          v-bind:google-client-id="options.federated.google_client_id"
+          v-bind:facebook-app-id="options.federated.facebook_app_id"
+          v-bind:amazon-client-id="options.federated.amazon_client_id">
+        </amplify-federated-sign-in>
+      </div>
+      <div v-if="options.federated && options.generic">
+        <div :class="amplifyUI.strike">
+          <span :class="amplifyUI.strikeContent">
+            {{$Amplify.I18n.get('or')}}
+          </span>
         </div>
       </div>
-    </div>
-    <div v-bind:class="amplifyUI.sectionFooter" v-bind:data-test="auth.signIn.footerSection">
-      <span v-bind:class="amplifyUI.sectionFooterPrimaryContent">
-        <button v-bind:class="amplifyUI.button" v-on:click="signIn" v-bind:data-test="auth.signIn.signInButton">{{$Amplify.I18n.get('Sign In')}}</button>
-      </span>
-      <span v-bind:class="amplifyUI.sectionFooterSecondaryContent" v-if="options.isSignUpDisplayed">
-        {{$Amplify.I18n.get('No account? ')}}
-        <a v-bind:class="amplifyUI.a" v-on:click="signUp" v-bind:data-test="auth.signIn.createAccountLink">{{$Amplify.I18n.get('Create account')}}</a>
-      </span>
-    </div>
-    <div class="error" v-if="error" v-bind:data-test="auth.signIn.signInError">
-      {{ error }}
+      <div v-if="options.generic">
+        <amplify-username-field
+          v-bind:usernameAttributes="usernameAttributes"
+          v-on:username-field-changed="usernameFieldChanged">
+        </amplify-username-field>
+        <div v-bind:class="amplifyUI.formField">
+          <div v-bind:class="amplifyUI.inputLabel">{{$Amplify.I18n.get('Password')}} *</div>
+          <input  v-bind:class="amplifyUI.input" v-model="password" type="password" :placeholder="$Amplify.I18n.get('Enter your password')" v-on:keyup.enter="signIn" v-bind:data-test="auth.signIn.passwordInput" />
+          <div v-bind:class="amplifyUI.hint">
+            {{$Amplify.I18n.get('Forget your password? ')}}
+            <a v-bind:class="amplifyUI.a" v-on:click="forgot" v-bind:data-test="auth.signIn.forgotPasswordLink">{{$Amplify.I18n.get('Reset password')}}</a>
+          </div>
+        </div>
+        <div v-bind:class="amplifyUI.sectionFooter" v-bind:data-test="auth.signIn.footerSection">
+          <span v-bind:class="amplifyUI.sectionFooterPrimaryContent">
+            <button v-bind:class="amplifyUI.button" v-on:click="signIn" v-bind:data-test="auth.signIn.signInButton">{{$Amplify.I18n.get('Sign In')}}</button>
+          </span>
+          <span v-bind:class="amplifyUI.sectionFooterSecondaryContent" v-if="options.isSignUpDisplayed">
+            {{$Amplify.I18n.get('No account? ')}}
+            <a v-bind:class="amplifyUI.a" v-on:click="signUp" v-bind:data-test="auth.signIn.createAccountLink">{{$Amplify.I18n.get('Create account')}}</a>
+          </span>
+        </div>
+        <div class="error" v-if="error" v-bind:data-test="auth.signIn.signInError">
+          {{ error }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -77,6 +93,8 @@ export default {
         header: this.$Amplify.I18n.get('Sign in to your account'),
         username: '',
         isSignUpDisplayed: true,
+        generic: true,
+        federated: null
       }
       return Object.assign(defaults, this.signInConfig || {})
     },
