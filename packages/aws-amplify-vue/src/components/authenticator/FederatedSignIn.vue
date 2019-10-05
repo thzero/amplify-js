@@ -13,20 +13,20 @@
 
 <template>
   <div id="federatedSignIn">
-    <google-button
-      v-if="googleClientId"
-      :google-client-id="googleClientId"
-    ></google-button>
+    <amazon-button
+      v-if="amazonClientId"
+      :amazonClientId="amazonClientId"
+    ></amazon-button>
 
     <facebook-button
       v-if="facebookAppId"
-      :facebook-app-id="facebookAppId"
+      :facebookAppId="facebookAppId"
     ></facebook-button>
 
-    <amazon-button
-      v-if="amazonClientId"
-      :amazon-client-id="amazonClientId"
-    ></amazon-button>
+    <google-button
+      v-if="googleClientId"
+      :googleClientId="googleClientId"
+    ></google-button>
   </div>
 </template>
 

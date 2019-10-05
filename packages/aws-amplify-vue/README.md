@@ -137,23 +137,90 @@ Events:
 * ```AmplifyEventBus.$emit('authState', 'signUp')```: Emitted when a user clicks 'Back to Sign Up'.
 
 ### FederatedSignIn
-The FederatedSignIn component provides your users with the ability to sign in using social providers.
+The FederatedSignIn component provides your users with the ability to sign in using social providers.  Only the social providers that have
+attributes with ids will be displayed.
 Usage: ```<amplify-federated-sign-in></amplify-federated-sign-in>```
 Config:
 ```
 <amplify-federated-sign-in
-  v-bind:google_client_id="google_client_id"
-  v-bind:facebook_app_id="facebook_app_id"
-  v-bind:amazon_client_id="amazon_client_id">
+  v-bind:amazonClientId="amazon_client_id"
+  v-bind:facebookAppId="facebook_app_id"
+  v-bind:googleClientId="google_client_id">
 </amplify-federated-sign-in>
 ```
 | Attribute        | Type   | Description                               | Default   | Required |
 |------------------|--------|-------------------------------------------|-----------|----------|
-| google_client_id | string | the application id to the social provider | ''        | no       |
-| facebook_app_id  | string | the application id to the social provider | ''        | no       |
 | amazon_client_id | string | the application id to the social provider | ''        | no       |
+| facebook_app_id  | string | the application id to the social provider | ''        | no       |
+| google_client_id | string | the application id to the social provider | ''        | no       |
 Events:
-* ```AmplifyEventBus.$emit('authState', 'signedIn')```: Emitted when a user successfully signs in without answering an MFA challenge.
+* ```AmplifyEventBus.$emit('authState', 'signedIn')```: Emitted when a user successfully signs in using social providers.
+
+### FederatedSignInAmazon
+The FederatedSignIn Amazon component provides your users with the ability to sign in using the Amazon social provider.
+Usage: ```<amplify-federated-sign-in-amazon></amplify-federated-sign-in-amazon>```
+Config:
+```
+<amplify-federated-sign-in-amazon
+  v-bind:amazonClientId="amazon_client_id">
+</amplify-federated-sign-in-amazon>
+```
+| Attribute        | Type   | Description                               | Default   | Required |
+|------------------|--------|-------------------------------------------|-----------|----------|
+| amazon_client_id | string | the application id to the social provider | ''        | yes      |
+Slots:
+```
+| Slot             | Description                                                               |
+|------------------|---------------------------------------------------------------------------|
+| <default>        | replace the entire button with custom template                            |
+| icon             | replace the icon button with custom icon                                  |
+| text             | replace the text label with custom text                                   |
+Events:
+* ```AmplifyEventBus.$emit('authState', 'signedIn')```: Emitted when a user successfully signs in using the social provider.
+
+### FederatedSignInFacebook
+The FederatedSignIn Facebook component provides your users with the ability to sign in using the Facebook social provider.
+Usage: ```<amplify-federated-sign-in-facebook></amplify-federated-sign-in-facebook>```
+Config:
+```
+<amplify-federated-sign-in-facebook
+  v-bind:facebook_app_id="facebook_app_id">
+</amplify-federated-sign-in-facebook>
+```
+| Attribute        | Type   | Description                               | Default   | Required |
+|------------------|--------|-------------------------------------------|-----------|----------|
+| facebook_app_id  | string | the application id to the social provider | ''        | yes      |
+Slots:
+```
+| Slot             | Description                                                               |
+|------------------|---------------------------------------------------------------------------|
+| <default>        | replace the entire button with custom template                            |
+| icon             | replace the icon button with custom icon                                  |
+| text             | replace the text label with custom text                                   |
+Events:
+* ```AmplifyEventBus.$emit('authState', 'signedIn')```: Emitted when a user successfully signs in using the social provider.
+
+### FederatedSignInGoogle
+The FederatedSignIn Google component provides your users with the ability to sign in using the Google social provider.
+Usage: ```<amplify-federated-sign-in-google></amplify-federated-sign-in-google>```
+Config:
+```
+<amplify-federated-sign-in-google
+  v-bind:googleClientId="google_client_id">
+</amplify-federated-sign-in-google>
+```
+| Attribute        | Type   | Description                               | Default   | Required |
+|------------------|--------|-------------------------------------------|-----------|----------|
+| google_client_id | string | the application id to the social provider | ''        | yes      |
+Slots:
+```
+| Slot             | Description                                                               |
+|------------------|---------------------------------------------------------------------------|
+| <default>        | replace the entire button with custom template                            |
+| icon             | replace the icon button with custom icon                                  |
+| text             | replace the text label with custom text                                   |
+Events:
+* ```AmplifyEventBus.$emit('authState', 'signedIn')```: Emitted when a user successfully signs in using the social provider.
 
 ### ConfirmSignIn
 
